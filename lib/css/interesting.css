@@ -1,0 +1,21 @@
+#mainbox {
+	background-color: #FCFCFC;
+}
+
+#tablerow {
+	margin-top: 40px;
+	background-color: white;
+}
+
+.column-input-box {
+	background-color: #FCFCFC;
+	padding: 20px;
+	margin: 10px;
+}
+
+.column-input-box-action {
+	background-color: #FCFCFC;
+	padding: 20px;
+	padding-top: 40px;
+	margin: 10px;
+}

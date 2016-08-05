@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.1.1/css/bootstrap-slider.min.css" rel="stylesheet">
+    <link href="lib/css/interesting.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div id="mainbox">
+        <div class="container">
+
+            <div class="form-group">  
+                  
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center column-input-box">
+                            <p class="help-block">Lägsta pris</p>
+                            <input id="lowestprice" data-slider-id='lowestprice' type="text" data-slider-min="0" data-slider-max="10000000" data-slider-step="100000" data-slider-value="1000000"/>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="text-center column-input-box">
+                            <p class="help-block">Högsta pris</p>
+                            <input id="highestprice" data-slider-id='highestprice' type="text" data-slider-min="0" data-slider-max="10000000" data-slider-step="100000" data-slider-value="2000000"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="text-center column-input-box">
+                            <p class="help-block">Ammortering i procent</p>
+                            <input id="amortise" data-slider-id='amortise' type="text" data-slider-min="0" data-slider-max="2" data-slider-step="0.1" data-slider-value="2"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center column-input-box">
+                            <p class="help-block">Räntesats i procent</p>
+                            <input id="interestrate" data-slider-id='interestrate' type="text" data-slider-min="0" data-slider-max="4" data-slider-step="0.1" data-slider-value="2"/>
+                        </div>
+                    </div>                
+
+                    <div class="col-md-4">
+                        <div class="text-center column-input-box">
+                            <p class="help-block">Avgift i månaden</p>
+                            <input id="monthlyfee" data-slider-id='monthlyfee' type="text" data-slider-min="0" data-slider-max="5000" data-slider-step="100" data-slider-value="3000"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="text-center column-input-box">
+                            <p class="help-block">Övriga kostnader</p>
+                            <input id="othercosts" data-slider-id='othercosts' type="text" data-slider-min="0" data-slider-max="5000" data-slider-step="100" data-slider-value="1500"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="text-center column-input-box-action">
+                            <button type="submit" class="btn btn-primary btn-lg" id="calculatebutton">Beräkna</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div id="clickcounter"></div>
+                </div>
+
+            </div>
+
+        </div>            
+
+    </div>
+
+    <div id="tablebox">
+        <div class="container">
+            <div class="row" id="tablerow">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-striped text-center" id="calculationtable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Total köpeskilling</th>
+                                <th class="text-center">Kontantinsats</th>
+                                <th class="text-center">Lån</th>
+                                <th class="text-center">Ränta/m (30% ränteavdrag)</th>
+                                <th class="text-center">Ammortering/m</th>
+                                <th class="text-center">Avgift/m</th>
+                                <th class="text-center">Övriga/m</th>
+                                <th class="text-center">Totalkostnad/m</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablebody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.1.1/bootstrap-slider.min.js"></script>
+
+
+    <!--  REACT STUFFS... todo.  better than having a calculate button. -->
+    <script src="react-15.3.0/build/react.js"></script>
+    <script src="react-15.3.0/build/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+
+    <script src="lib/js/main.js"></script>
+
+    <!--
+    <script type="text/babel">
+        var Table = React.createClass({
+            getInitialState: function () {
+                return {
+                    lowPrice: $("lowestprice").val()
+                }
+            },
+            render: function () {
+                return (<p> {this.state.lowPrice} </p>)
+            }
+        });
+        ReactDOM.render(
+            <Table />,
+            document.getElementById('tablecontainer')
+            );
+
+    </script>
+
+
+    <script type="text/babel">
+
+      var Counter = React.createClass({
+        getInitialState: function () {
+          return { count: 0 };
+        },
+        handleClick: function () {
+          this.setState({
+            count: this.state.count + 1,
+          });
+        },
+        render: function () {
+          return (
+            <button onClick={this.handleClick}>
+              Click me! Number of clicks: {this.state.count}
+            </button>
+          );
+        }
+      });
+      ReactDOM.render(
+        <Counter />,
+        document.getElementById('clickcounter')
+      );
+
+    </script>
+
+    -->
+
+
+  </body>
+</html>
